@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanontaniana Baiboly</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        #response {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+        input {
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 7px 10px;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fanontaniana sy Valiny Baiboly</h1>
+    <label for="question">Mametraka teny iray na lohahevitra:</label>
+    <input type="text" id="question" placeholder="Soraty eto">
+    <button onclick="answerQuestion()">Alefaso</button>
+    <div id="response"></div>
+
+    <script>
+        // Angona JSON napetraka mivantana ao amin'ny JavaScript
+        const bibleData = [
+            {
+                key: "famoronana",
+                answer: "Ao amin'ny Genesisy 1:1-31, hitantsika fa Andriamanitra no nahary ny lanitra sy ny tany tamin'ny voalohany. Noforoniny ny hazavana, ny rano, ny tany, ny zavamananaina, ary ny olona tamin'ny andro 6. Tamin'ny andro fahafito, nitsahatra ny Tompo ary nanamasina izany ho andro Sabata. Ny famoronana dia manambara ny fahefan'Andriamanitra sy ny fahatanterahany."
+            },
+            {
+                key: "sabata",
+                answer: "Ny Sabata dia voalaza ao amin'ny Eksodosy 20:8-11, izay milaza ny maha-zava-dehibe ny fialan-tsasatra sy ny fanamasinana azy ho andro an'ny Tompo. Ny Sabata dia fotoana iasan'ny olona amin'ny fanomezam-boninahitra an'Andriamanitra, manaraka ny ohatra navelany tamin'ny famoronana. Maro ny andininy Baiboly manamafy ny maha-zava-dehibe ny Sabata."
+            },
+            {
+                key: "noa",
+                answer: "Noa dia nanorina sambofiara lehibe araka ny baiko avy amin'Andriamanitra. Izy sy ny fianakaviany no tafavoaka velona tamin'ny safo-drano lehibe izay nandringana ny olombelona ratsy fanahy. Genesisy 6-9 no ahitana ny tantaran'i Noa, izay manamarina ny fitondran'i Jehovah fiarovana sy famindram-po amin'ny olona manaraka azy."
+            },
+            {
+                key: "adama sy eva",
+                answer: "Ny tantaran'i Adama sy Eva dia hita ao amin'ny Genesisy 2-3. Izy ireo no voahary voalohany ary niaina tao amin'ny Zaridainan'i Edena mandra-pialany noho ny tsy fanarahan-dalàna amin'ny hazo voarara."
+            },
+            {
+                key: "davida sy goliata",
+                answer: "Ny tantara momba ny fandresen'i Davida an'i Goliata dia hita ao amin'ny 1 Samoela 17. Izy no nanolo-tena, na dia mbola tanora aza, ary nandresy an'i Goliata noho ny finoany sy ny herin'Andriamanitra."
+            },
+            {
+                key: "didy lehibe",
+                answer: "Tiavo ny Tompo Andriamanitrao amin'ny fonao rehetra, amin'ny fanahinao rehetra, ary amin'ny sainao rehetra, ary tiavo ny namanao tahaka ny tenanao. Ity fampianarana lehibe ity dia hita ao amin'ny Matio 22:37-39."
+            },
+            {
+                key: "toriteny teo an-tendrombohitra",
+                answer: "Ny toriteny nataon'i Jesoa teo an-tendrombohitra dia hita ao amin'ny Matio 5-7. Ity fampianarana ity dia ahitana ny Sambatra, ny fitiavana ny fahavalo, ary ny fahatsarana ara-pivavahana."
+            },
+            {
+                key: "fanekena vaovao",
+                answer: "Ny Fanekena Vaovao dia mifototra amin'ny sorona nataon'i Jesoa Kristy. Ao amin'ny Hebreo dia hazavaina fa ny fanekena vaovao dia mihoatra ny fanekena taloha noho ny fahatanterahan'i Kristy."
+            },
+            {
+                key: "fijalian'i kristy",
+                answer: "Ny fijalian'i Kristy dia ny fahoriana niaretany ho fanavotana ny olombelona. Ao amin'ny Matio 27, Marka 15, Lioka 23, ary Jaona 19 no ahitana ny antsipiriany momba ny fahafatesany sy ny fitsanganany ho velona."
+            },
+            {
+                key: "jerusalema",
+                answer: "Jerusalema dia tanàna manan-danja ao amin'ny Baiboly. Izy no ivon-toeran'ny tantaran'ny Jiosy sy ny fiainan'i Jesoa Kristy ary manan-danja ho an'ny Kristianina."
+            },
+            {
+                key: "jona",
+                answer: "Ny tantaran'i Jona dia hita ao amin'ny bokin'i Jona. Izy no nandositra ny baiko avy amin'Andriamanitra, saingy niaiky fa tsy afaka miavo-tena ka nanatitra ny hafatra nomen'ny Tompo tany Niniva."
+            },
+            {
+                key: "paoly",
+                answer: "Paoly Apostoly dia mpanompon'i Kristy izay niova fo tao amin'ny Asan'ny Apostoly 9. Izy no mpanoratra epistily maro izay mamelona ny fampianarana Kristianina hatramin'izao."
+            },
+            {
+                key: "fitsanganana ho velona",
+                answer: "Ny fitsanganan'i Jesoa ho velona dia fototra amin'ny finoana Kristianina. Hita ao amin'ny Matio 28, Marka 16, Lioka 24, ary Jaona 20 ny porofo sy ny fiaraha-mientan'ny mpianany."
+            },
+            {
+                key: "apokalypsy",
+                answer: "Ny Apokalypsy dia boky farany ao amin'ny Baiboly. Manambara ny zavatra ho avy sy ny fandresen'i Kristy amin'ny farany. Ao amin'ny Apokalypsy 21-22 no ahitana ny fahatanterahan'ny fanjakan'Andriamanitra."
+            }
+        ];
+
+        // Fiasa hamaliana fanontaniana
+        function answerQuestion() {
+            const question = document.getElementById("question").value.toLowerCase();
+            const responseElement = document.getElementById("response");
+            let response = "Miala tsiny, tsy mbola misy valiny voafaritra ho an'izany teny izany.";
+
+            // Karoka valiny ao amin'ny angona
+            for (const item of bibleData) {
+                if (question.includes(item.key)) {
+                    response = item.answer;
+                    break;
+                }
+            }
+
+            // Mampiseho ny valiny lava
+            responseElement.textContent = response;
+        }
+    </script>
+</body>
+</html>
